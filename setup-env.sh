@@ -10,12 +10,27 @@ git config --global user.name "$GIT_NAME"
 git config --global user.email "$GIT_EMAIL"
 git config --global github.user "$GIT_USER"
 
-# Ensure Python3 is installed
+# Ensure Python3 and pipx are installed
 if ! command -v python3 &> /dev/null; then
     echo "Installing Python3..."
     sudo apt update && sudo apt install -y python3
 else
     echo "Python3 is already installed. Skipping."
+fi
+
+if ! command -v pipx &> /dev/null; then
+    echo "Installing pipx..."
+    sudo apt install -y pipx
+    pipx ensurepath
+else
+    echo "pipx is already installed. Skipping."
+fi
+
+# Ensure ~/.local/bin is in PATH
+if ! echo "$PATH" | grep -q "$HOME/.local/bin"; then
+    echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+    echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+    export PATH="$HOME/.local/bin:$PATH"
 fi
 
 # Install Tor and Proxychains
@@ -33,8 +48,8 @@ else
     echo "Proxychains is already installed. Skipping."
 fi
 
-# Install Anonsurf
-if [ ! -d "$HOME/kali-anonsurf" ]; then
+# Install Anonsurf if not already installed
+if ! command -v anonsurf &> /dev/null; then
     echo "Installing Anonsurf..."
     git clone https://github.com/Und3rf10w/kali-anonsurf.git "$HOME/kali-anonsurf"
     cd "$HOME/kali-anonsurf" && sudo ./installer.sh && cd ..
@@ -102,4 +117,3 @@ fi
 source ~/.zshrc
 
 echo "Installation completed!"
-
