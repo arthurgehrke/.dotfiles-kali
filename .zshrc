@@ -2,7 +2,6 @@ export HISTFILE=~/.zsh_history
 export HISTFILESIZE=1000000000
 export HISTSIZE=1000000000
 export SAVEHIST=1000000000
-export HISTTIMEFORMAT="[%F %T] "
 export HIST_STAMPS="yyyy-mm-dd"
 
 setopt EXTENDED_HISTORY
@@ -39,16 +38,17 @@ autoload -z edit-command-line
 zle -N edit-command-line
 
 bindkey "^X^E" edit-command-line
-bindkey '^O' autosuggest-accept
-bindkey '^B' backward-word
-bindkey '^F' forward-word
-bindkey '^H' backward-char
-bindkey '^L' forward-char
-bindkey '^D' delete-char
-bindkey '^A' beginning-of-line
-bindkey '^E' end-of-line
-bindkey '^Y' accept-search
-bindkey '^W' backward-kill-word
+bindkey "^O" autosuggest-accept
+bindkey "^B" backward-word
+bindkey "^F" forward-word
+bindkey "^H" backward-char
+bindkey "^L" end-of-line
+bindkey "^D" delete-char
+bindkey "^A" beginning-of-line
+bindkey "^E" end-of-line
+bindkey "^Y" accept-search
+bindkey "^W" backward-kill-word
+bindkey "^K" interrupt
 
 # hide EOL sign ('%')
 PROMPT_EOL_MARK=""
@@ -69,5 +69,10 @@ zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p
 zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' verbose true
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+# Load zsh plugins
+ZSH_CUSTOM=${ZSH_CUSTOM:-$HOME/.zsh}
+source $ZSH_CUSTOM/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $ZSH_CUSTOM/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 export PATH="$HOME/.local/bin:$PATH"
