@@ -58,6 +58,14 @@ else
     echo "Anonsurf is already installed. Skipping."
 fi
 
+# Install Neovim
+if ! command -v nvim &> /dev/null; then
+    echo "Installing Neovim..."
+    sudo apt install -y neovim
+else
+    echo "Neovim is already installed. Skipping."
+fi
+
 # Remove conflicting profile files
 for file in "$HOME/.profile" "$HOME/.bash_profile" "$HOME/.zprofile"; do
     if [ -f "$file" ]; then
