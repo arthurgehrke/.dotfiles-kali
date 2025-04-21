@@ -12,3 +12,6 @@ alias cppcompile='c++ -std=c++11 -stdlib=libc++'
 alias rgall="rg --files --hidden --follow -g '!{node_modules,.git,Library,Pictures,.nvm,.npm,.local,.cargo,.pyenv,.pyenv-versions,repositories,Google Drive/Other computers/}'"
 alias filespreview="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 alias openhistory="nvim ~/.zhistory"
+
+alias mkvenv='python3 -m venv .venv && source .venv/bin/activate'
+alias actvenv='source .venv/bin/activate'
